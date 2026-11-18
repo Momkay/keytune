@@ -215,3 +215,9 @@ Read with cmd 5 at `64*t`, cmd 0xA0 at `1024*t`, cmd 8 at `512*(4*t+layer)`, t =
 ### C1 follow-up hardware tests (2026-11-18, all restored)
 - **Fill all keys** (83 named keys, red) + Apply: all 83 keys red in the cmd 10 table, effect byte 0, read-back OK. **Clear all keys** + Apply: table all zero, read-back OK (note this also removes the factory white W A S D and arrows).
 - **Restore from a backup file** (taken automatically before the first Apply of that session, `colorsHex` = 24 non-zero bytes, effect 6): the app staged "8 painted keys + settings", Apply wrote them, read-back OK, and the keyboard then equalled the original baseline byte for byte (all 3 profiles' cmd 10 tables and cmd 5 blocks, base block).
+
+### Limits seen on hardware (2026-11-18)
+- The user set all 83 keys of profile 1 to **4.00 mm** in the official app; the keyboard stores it (trigger struct bytes 2-3 = `0x018F`, value + 1 = 400) and our app reads it back. So the press point range reaches at least 4.00 mm, more than the product page's "actuation 0.1-3.4 mm". The Ace 75 model therefore uses `actuation: [10, 400]`.
+- Rapid Trigger press/release ranges: product page says 0.001-3.4 mm, the official device table says 3.4 mm for the default switch (some switches 3.0 or 3.5). Our limit is 3.40 mm (340 units); NOT tested on hardware.
+- The official device table also lists per model `precisionConfig` (Ace 75: 0.01, 0.005 and 0.001 mm) and `featSupport` (LTEnabled, RTDoubleClick, lightCalibration, a second side light "hasSideEffect2"). The app only uses the 0.01 mm step.
+- Product page (MCHOSE store): "Horizon RGB Light Bar ... synced with the keyboard backlight", three onboard profiles switched from the keyboard (RT button), volume knob on the left side with press to mute.

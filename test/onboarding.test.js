@@ -37,6 +37,22 @@ test('every registered model has what the app needs (layout rows resolve, limits
   }
 });
 
+test('every model records its specs, and its limits fit the key format and the rated ranges', () => {
+  for (const m of models) {
+    const { maxTravel, rtMax, minActuation } = m.specs;
+    assert.ok(Number.isInteger(maxTravel) && Number.isInteger(rtMax) && maxTravel > minActuation && minActuation >= 1, m.name);
+    const [aLo, aHi] = m.limits.actuation;
+    assert.ok(aLo >= minActuation && aHi <= maxTravel, `${m.name}: actuation must stay inside the rated travel`);
+    for (const f of ['actuation', 'rtPress', 'rtRelease']) { // 9-bit fields, stored as value - 1
+      const [lo, hi] = m.limits[f];
+      assert.ok(lo >= 1 && hi <= 512, `${m.name}: ${f} limits`);
+    }
+    for (const f of ['rtPress', 'rtRelease']) assert.ok(m.limits[f][1] <= rtMax, `${m.name}: ${f} must stay inside the rated Rapid Trigger range`);
+    for (const f of ['pressDeadzone', 'releaseDeadzone']) assert.ok(m.limits[f][0] >= 0 && m.limits[f][1] <= 127, `${m.name}: ${f} (7-bit field)`);
+    assert.ok(m.limits.keyMode[0] === 0 && m.limits.keyMode[1] <= 15, m.name);
+  }
+});
+
 test('the picker filter is vendor-wide so unknown keyboards can be reported', () => {
   assert.deepEqual(hidFilters(), [{ vendorId: 0x3837 }]);
 });

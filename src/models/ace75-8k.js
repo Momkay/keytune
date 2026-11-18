@@ -5,11 +5,17 @@ export const ace75_8k = {
   vid: 0x3837,
   pid: 0x303C,
   keys: 128,
-  lightBar: true, // the full-length Horizon light bar under the function row; synced with the backlight (MCHOSE product page)
+  lightBar: true, // draw the full-length Horizon light bar under the function row; synced with the backlight (MCHOSE product page)
   profiles: 3, // onboard profiles (hub: 默认板载 1-3); settings at 64*n, keys at 1024*n
   matrixKeys: 128, // 3-byte entries per layer in the key matrix (cmd 7/8)
-  // field -> [min, max]. shortcut: conservative guesses, the hub's real limits were not read; widen once checked
-  limits: /** @type {Record<string, [number, number]>} */ ({ keyMode: [0, 2], actuation: [10, 400], rtPress: [1, 200], rtRelease: [1, 200], pressDeadzone: [0, 100], releaseDeadzone: [0, 100] }),
+  // What the hardware is rated for, with where each number comes from. Every model must record this (docs/ADDING_A_MODEL.md, step 3a).
+  // Units are raw 0.01 mm. maxTravel = the largest press point the keyboard really holds: 4.00 mm was set in the hub and read back from the
+  // keyboard (2026-11-18), which is more than the product page's 3.4 mm, so hardware wins. rtMax = Rapid Trigger range, product page 3.4 mm
+  // and the official device table (default switch maxTravel 3.4); not tested on hardware yet. The app only uses the 0.01 mm step;
+  // 0.001/0.005 mm precision (official table precisionConfig) is not supported yet.
+  specs: { maxTravel: 400, rtMax: 340, minActuation: 10, precisionsMm: [0.01, 0.005, 0.001], pollingKHz: [1, 2, 4, 8], profiles: 3, lightBar: true },
+  // field -> [min, max], in raw units. shortcut: dead zones (0-1.00 mm) are a conservative guess, no published figure; widen once checked on hardware
+  limits: /** @type {Record<string, [number, number]>} */ ({ keyMode: [0, 2], actuation: [10, 400], rtPress: [1, 340], rtRelease: [1, 340], pressDeadzone: [0, 100], releaseDeadzone: [0, 100] }),
   // Physical layout, in key units (1u = one standard key): a string is a 1u key, [name, width] a wider key, a number is a gap,
   // and '@logo' is the logo key at the right end of the shift row (the logo light).
   // Every row is 16u wide. Mute and the RT key are not on the main board; they are shown as extras.
