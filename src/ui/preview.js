@@ -1,24 +1,12 @@
-// Drives the live light preview: every frame it asks effects.js for the colour of each key, the logo key and the strip.
+// Drives the live light preview: every frame it asks effects.js for the colour of each key, the logo key and the light bar.
 import { effectColor, sideColor, css, hash } from './effects.js';
-
-/** Point on the case edge for strip sample i of n, as a fraction of the board (clockwise from the top left). @param {number} i @param {number} n */
-export function perimeterPoint(i, n) {
-  const p = (i / n) * 4;
-  if (p < 1) return { x: p, y: 0 };
-  if (p < 2) return { x: 1, y: p - 1 };
-  if (p < 3) return { x: 3 - p, y: 1 };
-  return { x: 0, y: 4 - p };
-}
 
 /** The stored colour at the keyboard's brightness. @param {{r: number, g: number, b: number}} c @param {number} k 0..1 */
 const scale = (c, k) => ({ r: c.r * k, g: c.g * k, b: c.b * k });
 
-/** A conic gradient from a list of colours, closing the loop. @param {string[]} colors */
-export const conic = colors => `conic-gradient(from 0deg, ${[...colors, colors[0]].map((c, i, a) => `${c} ${Math.round((i / (a.length - 1)) * 100)}%`).join(', ')})`;
-
 /**
  * @param {{
- *   kb: {spots: () => {row: number, cx: number, cy: number}[], setLit: (row: number, c: string) => void, setLogo: (c: string) => void, setStrip: (c: string) => void, setBar: (c: string) => void},
+ *   kb: {spots: () => {row: number, cx: number, cy: number}[], setLit: (row: number, c: string) => void, setLogo: (c: string) => void, setBar: (c: string) => void},
  *   model: any,
  *   getState: () => {light: any, sides: {logo: any, ambient: any}, colors?: {r: number, g: number, b: number}[]},
  * }} o
@@ -51,14 +39,9 @@ export function createPreview({ kb, model, getState }) {
       kb.setLit(s.row, css(c));
     }
     kb.setLogo(css(sideColor(logoSpec, sides.logo, light, { x: 0.97, y: 0.8, id: -1 }, t, presses, 0.5)));
-    const N = 16, stops = [];
-    for (let i = 0; i < N; i++) {
-      const p = perimeterPoint(i, N);
-      stops.push(css(sideColor(ambientSpec, sides.ambient, light, { x: p.x, y: p.y, id: -2 }, t, presses, i / N)));
-    }
-    kb.setStrip(conic(stops));
-    const bar = [];
-    for (let i = 0; i < N; i++) bar.push(css(effectColor(light.effect, { x: i / (N - 1), y: 0.12, id: -3 }, t, light, presses))); // the Horizon light bar is synced with the backlight (product page)
+    // the light bar under the function row is the ambient light: it copies the backlight only when its effect is "follow backlight"
+    const N = 16, bar = [];
+    for (let i = 0; i < N; i++) bar.push(css(sideColor(ambientSpec, sides.ambient, light, { x: i / (N - 1), y: 0.12, id: -3 }, t, presses, i / (N - 1))));
     kb.setBar(`linear-gradient(90deg, ${bar.join(', ')})`);
   }
 

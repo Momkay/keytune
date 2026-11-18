@@ -25,7 +25,7 @@ test('the tokens define a 4px spacing scale, a type scale and both themes', () =
 test('every var() used in style.css is defined in tokens.css or inside style.css', () => {
   const defined = new Set([...(tokens + style).matchAll(/(--[\w-]+)\s*:/g)].map(m => m[1]));
   const used = new Set([...style.matchAll(/var\((--[\w-]+)/g)].map(m => m[1]));
-  const undefinedOnes = [...used].filter(u => !defined.has(u) && !['--w', '--u', '--lit', '--strip', '--bar'].includes(u));
+  const undefinedOnes = [...used].filter(u => !defined.has(u) && !['--w', '--u', '--lit', '--bar'].includes(u));
   assert.deepEqual(undefinedOnes, []);
 });
 

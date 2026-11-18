@@ -1,7 +1,7 @@
 # RESUME HERE (state saved 2026-11-18, Keytune 0.1.0 is PUBLISHED)
 
 ## Where things stand
-- **Pushed 2026-11-18 (live):** light bar follows the backlight, model specs + limits (actuation up to 4.00 mm, hardware-proven; Rapid Trigger 3.40 mm, untested), spec step in docs/ADDING_A_MODEL.md.
+- **Pushed 2026-11-18 (live), plus a local commit not pushed: the ambient ring around the case is removed and the light bar follows the AMBIENT light (it copies the backlight only when ambient is on 'follow'); ask before pushing.** Earlier pushed: light bar follows the backlight, model specs + limits (actuation up to 4.00 mm, hardware-proven; Rapid Trigger 3.40 mm, untested), spec step in docs/ADDING_A_MODEL.md.
 - **Published:** repo https://github.com/Momkay/keytune (public, branch `main`), live at **https://momkay.github.io/keytune/** (Pages from the Actions workflow; first CI run green, deploy ok, page loads, 37 modules, WebHID available). The app is called **Keytune**. Slices 1-9 and Phase 4 tracks A-D are done. 97 tests, lint, typecheck, `npm audit` (0) green. README (users) and `docs/DEVELOPING.md` (developers) written, 3 screenshots in `docs/screenshots/`.
 - Commits are authored with the user's git identity (name and GitHub noreply email). Ask before any further `git push`, force push, release tag or repo setting change; a push to `main` redeploys the site.
 - **Built this phase:** one-screen dark glass workspace; keyboard picture with a light bar under the F row and shifted legends; generic keycap logo; profile view + "Use Profile N" (cmd 14); per-key custom colours (cmd 10 read, cmd 11 write, effect 0 = "Custom"); backups carry the colour table.
@@ -10,7 +10,7 @@
 
 ## Keyboard state (what a new session must know before touching hardware)
 - Settings block, lighting, remap layers, colour table: original (the settings block was verified byte-identical to the 16:51 original several times).
-- **KEYBOARD STATE CHANGED BY THE USER (2026-11-18, late):** in the official app they set ALL keys of Profile 1 to 4.00 mm press point and switched the lights off (backlight effect 255, logo and ambient off). That is now their state: do NOT restore Horizontal wave / 2.00 mm unasked. The 's1_before' baseline in the app's localStorage is outdated. Colour table is still factory; profiles 2 and 3 unchanged; Profile 1 active.
+- **Keyboard state is the USER's to change.** Late 2026-11-18 they briefly set all Profile 1 keys to 4.00 mm with lights off, then changed it back (2.00 mm, Horizontal wave seen in the app afterwards). Always READ the current state first; never restore a remembered 'baseline' unasked. The 's1_before' baseline in the app's localStorage is only a historical reference.
 - **All 83 keys have a press point of 2.00 mm, Rapid Trigger off, because the USER set that himself/herself. Do not "restore" it to 1.50 mm.** The "Comfortable typing" preset equals this state.
 - Allowlist: 3,4,5,6,7,8,9,0xA0,0xA1. Commands 10/11 (per-key colours) were tried and removed: they only fill a temporary buffer. Command 241 (custom-parameter area) is unexplored and not allowed.
 

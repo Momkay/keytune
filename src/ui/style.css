@@ -53,8 +53,6 @@ button, input, select { font: inherit; color: inherit; }
 /* the keyboard drawing */
 .kb { --u: min(calc((100vw - var(--rail-w) - var(--inspector-w) - 6 * var(--gap)) / 17.2), calc((100dvh - var(--chrome-h)) / 8.5), var(--board-max)); display: grid; gap: var(--s-3); justify-items: end; }
 .case { position: relative; padding: calc(var(--u) * .38); border-radius: calc(var(--u) * .34); background: var(--kb-case); border: var(--line) solid var(--kb-case-edge); border-top-color: var(--edge-hi); }
-.strip { position: absolute; inset: calc(var(--u) * -.1); border-radius: calc(var(--u) * .44); padding: 3px; background: var(--strip, var(--edge)); pointer-events: none;
-  -webkit-mask: linear-gradient(var(--mask) 0 0) content-box, linear-gradient(var(--mask) 0 0); -webkit-mask-composite: xor; mask: linear-gradient(var(--mask) 0 0) content-box exclude, linear-gradient(var(--mask) 0 0); }
 .board { display: grid; }
 .lightbar { height: calc(var(--u) * .12); margin: calc(var(--u) * .05) calc(var(--u) * .04) calc(var(--u) * .1); border-radius: var(--r-pill); background: var(--bar, var(--edge)); }
 .krow { display: flex; }

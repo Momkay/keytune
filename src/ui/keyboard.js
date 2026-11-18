@@ -1,5 +1,5 @@
-// The Ace 75 picture: case, keys, the logo key and the LED strip. Built once; paint() updates labels and states,
-// and the light preview drives the colours through setLit() / setLogo() / setStrip().
+// The Ace 75 picture: case, keys, the logo key and the light bar under the function row. Built once; paint() updates labels and states,
+// and the light preview drives the colours through setLit() / setLogo() / setBar().
 import { h } from './dom.js';
 import { layoutRows, spokenName } from './layout.js';
 import { logo } from './icons.js';
@@ -31,8 +31,7 @@ export function buildKeyboard(model, onKey, onLogo = () => {}) {
     const row = model.keymap.find((/** @type {[number, string]} */ [, n]) => n === name)[0];
     return cap({ name, row, w: 1.5, label: name === 'RT' ? 'RT key' : name, cx: 0.5, cy: 1 });
   }));
-  const strip = h('div', { class: 'strip', 'aria-hidden': 'true' });
-  const shell = h('div', { class: 'case' }, strip, board);
+  const shell = h('div', { class: 'case' }, board);
   const el = h('div', { class: 'kb' }, shell, extras);
 
   // One tab stop for the whole keyboard (roving tabindex); arrow keys move between keys by position on screen.
@@ -88,8 +87,6 @@ export function buildKeyboard(model, onKey, onLogo = () => {}) {
     setLogo(color) { logoBtn?.style.setProperty('--lit', color); },
     /** Colour the light bar under the function row with a CSS background. @param {string} background */
     setBar(background) { board.querySelector('.lightbar')?.style.setProperty('--bar', background); },
-    /** Colour the strip around the case with a CSS background (a colour or a gradient). @param {string} background */
-    setStrip(background) { strip.style.setProperty('--strip', background); },
     /** Show the light as the key colour (Lighting section) or as a soft glow (other sections). @param {boolean} full */
     setLightMode(full) { el.classList.toggle('lit-full', full); },
   };
