@@ -1,0 +1,7 @@
+# official MCHOSE JS copied for reading: copyrighted, never commit or publish
+analysis/
+node_modules/
+.env
+# backups contain the user's own keyboard config
+ace75-backup-*.json
+keytune-backup-*.json

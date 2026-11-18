@@ -1,0 +1,62 @@
+/* Design tokens: the only place raw colours and sizes are written. Everything else uses var(--...). */
+:root {
+  /* spacing: a 4px scale */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px;
+  /* type: one family, five sizes, two line heights */
+  --font: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --t-xs: 11px; --t-sm: 12px; --t-md: 13px; --t-lg: 15px; --t-xl: 20px;
+  --lh-tight: 1.25; --lh-body: 1.45;
+  --w-regular: 400; --w-medium: 500; --w-bold: 650;
+  /* shape */
+  --r-sm: 8px; --r-md: 12px; --r-lg: 20px; --r-pill: 999px;
+  --line: 1px; --ring: 2px;
+  /* layout */
+  --rail-w: 76px; --inspector-w: 384px; --gap: 12px; --chrome-h: 250px; --card-w: 520px; --board-max: 76px;
+  --h-sm: 28px; --h-md: 32px; --h-lg: 44px; --switch-w: 36px; --switch-h: 20px; --switch-dot: 16px; --swatch: 32px;
+  /* the keyboard picture follows the theme (dark glass by default) */
+  --kb-case: var(--case); --kb-case-edge: var(--edge); --kb-key: var(--key); --kb-key-hover: var(--glass-3); --kb-ink: var(--ink); --kb-ink-2: var(--ink-3);
+  --mask: #000; --white: #fff; --text-shadow: 0 1px 2px rgba(0, 0, 0, .55);
+  --ease: cubic-bezier(.2, .7, .2, 1); --dur: 140ms;
+
+  /* colour: dark is the default */
+  --bg-a: #0b1119; --bg-b: #101c29;
+  --glow-a: rgba(64, 160, 255, .22); --glow-b: rgba(40, 200, 170, .14);
+  --ink: #e9f0f7; --ink-2: #9fb0c1; --ink-3: #6f8296;
+  --glass-1: rgba(255, 255, 255, .045); --glass-2: rgba(255, 255, 255, .075); --glass-3: rgba(255, 255, 255, .12);
+  --edge: rgba(255, 255, 255, .10); --edge-hi: rgba(255, 255, 255, .26);
+  --accent: #52b4ff; --accent-ink: #04202e;
+  --warn: #ffb454; --bad: #ff8b8b; --good: #5be3a4;
+  --case: rgba(255, 255, 255, .035); --key: rgba(255, 255, 255, .075);
+  --shadow: 0 12px 40px rgba(0, 0, 0, .35);
+  --blur: 24px;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg-a: #e9f0f7; --bg-b: #dbe7f3;
+    --glow-a: rgba(64, 160, 255, .30); --glow-b: rgba(40, 200, 170, .20);
+    --ink: #0e1c2b; --ink-2: #44586b; --ink-3: #6a7d90;
+    --glass-1: rgba(255, 255, 255, .50); --glass-2: rgba(255, 255, 255, .66); --glass-3: rgba(255, 255, 255, .86);
+    --edge: rgba(20, 50, 80, .12); --edge-hi: rgba(255, 255, 255, .95);
+    --accent: #0a74bd; --accent-ink: #ffffff;
+    --warn: #96560a; --bad: #b3261e; --good: #0b7a4b;
+    --case: rgba(255, 255, 255, .45); --key: rgba(255, 255, 255, .80);
+    --shadow: 0 12px 36px rgba(30, 60, 100, .16);
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg-a: #e9f0f7; --bg-b: #dbe7f3;
+  --glow-a: rgba(64, 160, 255, .30); --glow-b: rgba(40, 200, 170, .20);
+  --ink: #0e1c2b; --ink-2: #44586b; --ink-3: #6a7d90;
+  --glass-1: rgba(255, 255, 255, .50); --glass-2: rgba(255, 255, 255, .66); --glass-3: rgba(255, 255, 255, .86);
+  --edge: rgba(20, 50, 80, .12); --edge-hi: rgba(255, 255, 255, .95);
+  --accent: #0a74bd; --accent-ink: #ffffff;
+  --warn: #96560a; --bad: #b3261e; --good: #0b7a4b;
+  --case: rgba(255, 255, 255, .45); --key: rgba(255, 255, 255, .80);
+  --shadow: 0 12px 36px rgba(30, 60, 100, .16);
+  color-scheme: light;
+}
+@media (prefers-reduced-transparency: reduce) {
+  :root { --glass-1: var(--bg-b); --glass-2: var(--bg-b); --glass-3: var(--bg-b); --blur: 0px; }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "keytune",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "homepage": "https://momkay.github.io/keytune/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Momkay/keytune.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Momkay/keytune/issues"
+  },
+  "type": "module",
+  "description": "Fast, English WebHID configurator for MCHOSE magnetic keyboards: key sensitivity, remap, lighting and profiles in the browser",
+  "keywords": [
+    "webhid",
+    "keyboard",
+    "mchose",
+    "magnetic-keyboard",
+    "rapid-trigger",
+    "configurator"
+  ],
+  "scripts": {
+    "test": "node --experimental-test-coverage --test-coverage-lines=80 --test",
+    "lint": "eslint --max-warnings 0 .",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=22.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.6.6",
+    "@types/w3c-web-hid": "^1.0.7",
+    "eslint": "^10.15.0",
+    "typescript": "^7.0.2"
+  }
+}
