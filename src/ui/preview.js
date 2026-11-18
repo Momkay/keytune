@@ -58,7 +58,7 @@ export function createPreview({ kb, model, getState }) {
     }
     kb.setStrip(conic(stops));
     const bar = [];
-    for (let i = 0; i < N; i++) bar.push(css(sideColor(ambientSpec, sides.ambient, light, { x: i / (N - 1), y: 0.12, id: -3 }, t, presses, i / N)));
+    for (let i = 0; i < N; i++) bar.push(css(effectColor(light.effect, { x: i / (N - 1), y: 0.12, id: -3 }, t, light, presses))); // the Horizon light bar is synced with the backlight (product page)
     kb.setBar(`linear-gradient(90deg, ${bar.join(', ')})`);
   }
 

@@ -5,7 +5,7 @@ export const ace75_8k = {
   vid: 0x3837,
   pid: 0x303C,
   keys: 128,
-  lightBar: true, // the thin light bar under the function row (follows the ambient light)
+  lightBar: true, // the full-length Horizon light bar under the function row; synced with the backlight (MCHOSE product page)
   profiles: 3, // onboard profiles (hub: 默认板载 1-3); settings at 64*n, keys at 1024*n
   matrixKeys: 128, // 3-byte entries per layer in the key matrix (cmd 7/8)
   // field -> [min, max]. shortcut: conservative guesses, the hub's real limits were not read; widen once checked
